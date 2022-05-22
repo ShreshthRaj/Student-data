@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title> Admin Panel Dashboard</title>
+    
+</head>
+<style>
+    #adminpanel{
+        
+        border: 1px solid black;
+        margin: auto;
+      padding-bottom: 15px;
+        
+    width: 300px;
+    margin-top: 25px;
+    }
+    #adminpanel>form{
+        margin: auto;
+
+    }
+   
+input {
+    margin: 5px 23%;
+}
+select{
+    margin: 5px 23%;
+    
+}
+#submit{
+    margin-left: 40%;
+    margin-top: 11px;
+    padding: 2px 15px;
+    width: auto; 
+    background-color:antiquewhite;
+
+}
+#submit:hover{
+    background-color: green;
+    cursor: pointer;
+    color: aliceblue;
+}
+nav{
+        display: flex;
+        margin: 0px 5px;
+        margin: auto;
+    }
+    nav>p{
+        justify-content: space-between;
+        margin: 0px 151px;
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+
+</style>
+<body>
+    <nav>
+        <p>WEB-17</p>
+        <p>WEB-18</p>
+        <p>WEB-19</p>
+        <p>FDN-03</p>
+    </nav>
+    <!-- https://staticg.sportskeeda.com/editor/2021/11/4defa-16381804065696-1920.jpg -->
+    <div id="adminpanel"> 
+<center>        <h1>Students data</h1>
+</center>
+    <a href="Dashboard.html"> <button>Dashboard</button></a>
+        <form id="form" onsubmit="fun()" >
+            <input id="name" type="text" placeholder="Student name">
+            <br>
+            <!-- <input id="course" type="text" placeholder="Type your course"> -->
+            <select name="course" id="course">
+                <option value="">Select your course</option>
+                <option value="FULL-STACK WEB DEVELOPER">FULL-STACK WEB DEVELOPER</option>
+                <option value="FRONTEND DEVELOPER">FRONTEND DEVELOPER</option>
+                <option value="BACKEND DEVELOPER">BACKEND DEVELOPER</option>
+            </select>
+            <br>
+            <input id="unit" type="number" placeholder="Unit">
+            <br>
+            <input id="image" type="text" placeholder="Image_url">
+            <br>
+              <!-- <input type="text" id="batch" placeholder="Batch"> -->
+              <select name="batch" id="batch">
+              <option value="">Select your Batch</option>
+              <option value="WEB-17">WEB-17</option>
+              <option value="WEB-18">WEB-18</option>
+              <option value="WEB-19">WEB-19</option>
+              <option value="FDN-03">FDN-03</option>
+              </select>
+            <br>
+<input id="submit" type="submit">
+        </form>
+    </div>
+</body>
+<script>
+
+
+
+function objectdemo(n,c,u,i,b){
+    this.name=n;
+    this.course=c;
+    this.unit=u;
+    this.image=i;
+    this.batch=b;
+}
+
+    function fun(){
+ event.preventDefault();
+let form =document.getElementById("form");
+let name =form.name.value;
+let  course =form.course.value;
+let unit=form.unit.value;
+let image=form.image.value;
+let batch=form.batch.value;
+
+
+
+
+let res= new  objectdemo(name,course,unit,image,batch);
+// console.log(res)
+
+var dataarr=JSON.parse(localStorage.getItem("datas")) || [];
+dataarr.push(res)
+console.log(dataarr)
+console.log(name,course,unit,image,batch ) 
+localStorage.setItem("datas",JSON.stringify(dataarr))
+
+
+}
+
+// ------------------------------;
+// var dataarr=JSON.parse(localStorage.getItem("datas")) || [];
+  
+// function fun(){
+//     event.preventDefault();
+//     var data={
+//         name:form.name.value,
+//         category:form.category.value,
+//         image:form.imageurl.value,
+//         price:form.price.value,
+//         gender:form.gender.value,
+//         sold:form.sold.value,
+//     };
+//     dataarr.push(data);
+//     console.log(dataarr);
+//     localStorage.setItem("datas",JSON.stringify(dataarr))
+
+// }
+
+
+
+function calculate(){
+        let data=JSON.parse(localStorage.getItem("datas")) ;
+        let obj={};
+        for(let i=0;i<data.length;i++){
+            if(!obj[data[i].batch]){
+                obj[data[i].batch]=0;
+            }
+        }
+        for(let i=0;i<data.length;i++){
+            obj[data[i].batch]++;
+        }
+        console.log(obj)
+
+        // document.querySelector("nav>p").append(obj);
+
+      }
+      calculate();
+</script>
+</html>

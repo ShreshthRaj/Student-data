@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    #container{
+        display: grid;
+        grid-template-columns: repeat(3,1fr);
+        grid-template-rows: auto;
+        margin: auto;
+        width: 80%;
+        gap: 5px 11px;
+    }
+    #container>div{
+    border: 1px solid black;
+    justify-content: space-evenly;
+    padding: 20px 69px;
+
+    }
+    img{
+        height: 35px;
+        width: 35px;
+    }
+   
+</style>
+<body>
+
+    <div id="container">
+        <!-- Append here -->
+
+    </div>
+    
+</body>
+</html>
+<script>
+    
+    
+    dataarr=JSON.parse(localStorage.getItem("datas"));
+    display(dataarr)
+    
+    function display(data){
+          data.forEach(function(ele,index)
+          {
+            var box=document.createElement("div")
+         var p1 =document.createElement("p");
+         p1.innerText="Name: "+ ele.name;
+         var p2 =document.createElement("p");
+         p2.innerText= "Course: "+  ele.course;
+         var p3 =document.createElement("p");
+         p3.innerText= "Unit- "+ele.unit;
+         var p4 =document.createElement("img");
+         p4.setAttribute("src",ele.image);
+         var p5=document.createElement("p");
+         p5.innerText= "Batch: " +ele.batch;
+         var btn=document.createElement("button")
+         btn.innerText="Remove"
+         btn.addEventListener("click",function(){
+            remove(index);
+         })
+         box.append(p1,p2,p3,p4,p5,btn);
+         document.querySelector("#container").append(box);
+
+
+
+         
+
+          })
+      }
+
+
+
+      function calculate(){
+        let data=JSON.parse(localStorage.getItem("datas")) ;
+        let obj={};
+        for(let i=0;i<data.length;i++){
+            if(!obj[data[i].batch]){
+                obj[data[i].batch]=0;
+            }
+        }
+        for(let i=0;i<data.length;i++){
+            obj[data[i].batch]++;
+        }
+        console.log(obj)
+      }
+      calculate();
+
+   function remove(index){
+    
+
+    let data=JSON.parse(localStorage.getItem("datas"));
+    let newdata=data.filter(function(ele,i){
+    if(i===index){
+        let trash=JSON.parse(localStorage.getItem("trash")) || [];
+    trash.push(ele);
+    localStorage.setItem("trash",JSON.stringify(trash));
+
+    }else{
+        return i !==index;
+    }
+    });
+    localStorage.setItem("datas",JSON.stringify(newdata));
+    display(); 
+
+       
+   }
+
+
+</script>
